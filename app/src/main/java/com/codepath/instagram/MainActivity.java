@@ -18,15 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTakePicture;
     private ImageView ivPostImage;
     private Button btnSubmit;
+    private Button btnTimeline;
+
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btnTakePicture = findViewById(R.id.btnTakePicture);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnTimeline = findViewById(R.id.btnTimeline);
 
         //setting up submit button to publish instagram post
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //log out user account
                 ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
 
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
@@ -90,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 launchCamera();
+            }
+        });
+
+        //setting up timeline button
+        btnTimeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, TimelineActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
@@ -159,8 +168,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Return the file target for the photo based on filename
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        return file;
+        return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 }
