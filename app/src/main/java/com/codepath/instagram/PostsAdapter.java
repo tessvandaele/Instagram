@@ -51,18 +51,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
-    public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvTimeStamp;
+        private TextView tvUsername2;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,12 +65,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
+            tvUsername2 = itemView.findViewById(R.id.tvUsername2);
         }
 
         public void bind(Post post) {
             // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            tvUsername2.setText(post.getUser().getUsername());
             tvTimeStamp.setText(calculateTimeAgo(post.getCreatedAt()));
             ParseFile image = post.getImage();
             if (image != null) {

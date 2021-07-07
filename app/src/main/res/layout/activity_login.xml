@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:outlineProvider="paddedBounds"
     tools:context=".LoginActivity">
 
     <EditText
@@ -28,26 +29,28 @@
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#6EADEC"
         android:text="login" />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="390dp"
+        android:layout_height="163dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/logo"
-        tools:srcCompat="@drawable/logo" />
+        android:layout_marginTop="101dp"
+        app:srcCompat="@drawable/new_logo" />
 
     <Button
         android:id="@+id/btnSignup"
@@ -59,6 +62,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="#6EADEC"
         android:text="sign up" />
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnLogout;
     private EditText etDescription;
-    private Button btnTakePicture;
+    private ImageButton btnTakePicture;
     private ImageView ivPostImage;
-    private Button btnSubmit;
+    private ImageButton btnPost;
     private Button btnTimeline;
 
     private File photoFile;
@@ -48,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
         etDescription = findViewById(R.id.etDescription);
         btnTakePicture = findViewById(R.id.btnTakePicture);
         ivPostImage = findViewById(R.id.ivPostImage);
-        btnSubmit = findViewById(R.id.btnSubmit);
+        btnPost = findViewById(R.id.btnPost);
         btnTimeline = findViewById(R.id.btnTimeline);
 
         //setting up submit button to publish instagram post
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
