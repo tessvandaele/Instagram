@@ -26,6 +26,7 @@ The following **bonus** features are implemented:
 * [x] A **bottom navigation menu** was used with **fragments** for easy navigation between screens
 * [x] User can view a **grid layout** of their own posts on their profile screen
 * [x] User can view a user's **profile image** on their posts
+* [ ] User can view a **details screen** for the posts on their profile grid
 
 ## Video Walkthrough
 
