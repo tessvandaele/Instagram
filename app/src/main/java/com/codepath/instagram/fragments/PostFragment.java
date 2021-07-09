@@ -16,16 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.codepath.instagram.LoginActivity;
-import com.codepath.instagram.Post;
+import com.codepath.instagram.models.Post;
 import com.codepath.instagram.R;
-import com.codepath.instagram.TimelineActivity;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -35,9 +32,11 @@ import java.io.File;
 
 import static android.app.Activity.RESULT_OK;
 
+/* fragment for activity in which a user can create a post */
 
 public class PostFragment extends Fragment {
 
+    //view elements
     private EditText etDescription;
     private ImageButton btnTakePicture;
     private ImageView ivPostImage;
@@ -47,6 +46,7 @@ public class PostFragment extends Fragment {
     public String photoFileName = "photo.jpg";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
 
+    //empty constructor
     public PostFragment() {}
 
     //set up to view object hierarchy
@@ -55,16 +55,16 @@ public class PostFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_post, container, false);
     }
 
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        //set up views
         etDescription = view.findViewById(R.id.etDescription);
         btnTakePicture = view.findViewById(R.id.btnTakePicture);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnPost = view.findViewById(R.id.btnPost);
 
-        //setting up submit button to publish instagram post
+        //on click for submit button to publish instagram post
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +79,7 @@ public class PostFragment extends Fragment {
                     Toast.makeText(getContext(), "No image available", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //pass data to savePost method
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
             }
@@ -88,16 +89,21 @@ public class PostFragment extends Fragment {
         btnTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //calling helper method to launch the camera application
                 launchCamera();
             }
         });
     }
 
+    //helper method to save data to a post and then commit to backend
     private void savePost(String description, ParseUser currentUser, File photoFile) {
+        //setting data to post object
         Post post = new Post();
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
+
+        //saving to backend
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -106,7 +112,7 @@ public class PostFragment extends Fragment {
                     Toast.makeText(getContext(), "Error saving", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.i("MainActivity", "Post saved!");
+                //clearing input fields for better UI experience
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
             }
@@ -117,7 +123,7 @@ public class PostFragment extends Fragment {
     private void launchCamera() {
         //creating an implicit intent for action_image_capture
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference for future access
+        //create a File reference for future access
         photoFile = getPhotoFileUri(photoFileName);
 
         //defining where we want the output image to be stored (in photoFile)
@@ -135,11 +141,12 @@ public class PostFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) { //check that code is correct for camera use
-            if (resultCode == RESULT_OK) { //check that picture was taken
-                // set Bitmap with image
+        //check that code is correct for camera use
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            //check that a picture was taken
+            if (resultCode == RESULT_OK) {
+                // set bitmap with image
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                //Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, SOME_WIDTH);
                 //set image view with image from camera
                 ivPostImage.setImageBitmap(takenImage);
             } else { // Result was a failure
@@ -148,7 +155,7 @@ public class PostFragment extends Fragment {
         }
     }
 
-    // helper method to return the file based on file name
+    //helper method to return the file based on file name
     public File getPhotoFileUri(String fileName) {
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "MainActivity");
 

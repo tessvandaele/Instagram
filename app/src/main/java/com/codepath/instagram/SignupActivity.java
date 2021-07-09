@@ -14,6 +14,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+/* activity where user can sign up a new instagram account */
+
 public class SignupActivity extends AppCompatActivity {
 
     private EditText etUsernameSignup;
@@ -48,7 +50,8 @@ public class SignupActivity extends AppCompatActivity {
                             Log.e("SignupActivity", "Sign up unsuccessful", e);
                             return;
                         }
-                        Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+
+                        //create intent back to log in screen so user can log in with new account
                         Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                         startActivity(i);
                         finish();

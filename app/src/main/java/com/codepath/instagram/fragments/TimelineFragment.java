@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codepath.instagram.Post;
-import com.codepath.instagram.PostsAdapter;
+import com.codepath.instagram.models.Post;
+import com.codepath.instagram.adapters.PostsAdapter;
 import com.codepath.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -21,14 +21,18 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+/* fragment for timeline of posts */
+
 public class TimelineFragment extends Fragment {
 
     protected RecyclerView rvPosts;
     protected PostsAdapter adapter;
     protected List<Post> posts;
 
+    //empty constructor
     public TimelineFragment () {}
 
+    //inflate the timeline fragment layout
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_timeline, container, false);
@@ -41,13 +45,14 @@ public class TimelineFragment extends Fragment {
         rvPosts = view.findViewById(R.id.rvPosts);
         posts = new ArrayList<>();
 
-        //creating adapter
+        //creating and setting adapter
         adapter = new PostsAdapter(getContext(), posts);
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
     }
 
+    //helper method to retrieve the last 20 posts from backend
     protected void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);

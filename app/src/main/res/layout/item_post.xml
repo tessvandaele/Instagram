@@ -9,12 +9,12 @@
         android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/ivProfileTimeline"
         android:textSize="16sp"
         android:textStyle="bold"
         tools:text="tess" />
@@ -23,7 +23,7 @@
         android:id="@+id/ivImage"
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:layout_below="@+id/tvUser"
+        android:layout_below="@id/ivProfileTimeline"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
         android:layout_marginStart="10dp"
@@ -106,4 +106,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         app:srcCompat="@drawable/ic_save" />
+
+    <ImageView
+        android:id="@+id/ivProfileTimeline"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:srcCompat="@tools:sample/avatars" />
 </RelativeLayout>

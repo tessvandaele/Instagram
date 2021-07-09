@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.instagram.DetailsActivity;
+import com.codepath.instagram.models.Post;
+import com.codepath.instagram.R;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -20,16 +23,19 @@ import org.parceler.Parcels;
 import java.util.Date;
 import java.util.List;
 
+/* adapter for the timeline recycler view of posts */
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
 
+    //constructor
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
     }
 
+    //inflating the item_post layout as the view for the view holder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +43,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+    //finding correct post and calling the bind method to add it to the view holder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
@@ -56,11 +63,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        //views in item_post
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvTimeStamp;
         private TextView tvUsername2;
+        private ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +78,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
             tvUsername2 = itemView.findViewById(R.id.tvUsername2);
+            ivProfile = itemView.findViewById(R.id.ivProfileTimeline);
             itemView.setOnClickListener(this);
         }
 
@@ -78,12 +88,27 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             tvUsername2.setText(post.getUser().getUsername());
             tvTimeStamp.setText(calculateTimeAgo(post.getCreatedAt()));
+
+            // Retrieving images from the post and user models
             ParseFile image = post.getImage();
+            ParseFile profile = post.getUser().getParseFile("profile_image");
+
+            //setting post image if not null
             if (image != null) {
-                Glide.with(context).load(image.getUrl()).into(ivImage);
+                Glide.with(context)
+                        .load(image.getUrl())
+                        .centerCrop()
+                        .into(ivImage);
+            }
+
+            //setting profile image if not null
+            if (profile != null) {
+                Glide.with(context).load(profile.getUrl()).into(ivProfile);
             }
         }
 
+        //on click method for when a view holder is clicked; creates an intent to the details activity
+        //passes through the post using Parcels wrap
         @Override
         public void onClick(View v) {
             Log.d("click", "click");

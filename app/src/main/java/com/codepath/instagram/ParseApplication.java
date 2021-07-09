@@ -1,11 +1,12 @@
 package com.codepath.instagram;
 
 import android.app.Application;
-import android.util.Log;
 
+import com.codepath.instagram.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+/* connects to the backend to access and edit user data */
 
 public class ParseApplication extends Application {
 

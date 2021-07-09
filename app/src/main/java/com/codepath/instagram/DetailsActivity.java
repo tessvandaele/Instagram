@@ -8,11 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.instagram.models.Post;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
 import java.util.Date;
+
+/* Activity that displays a detailed view of a post */
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescriptionDetails);
         tvTimeStamp = findViewById(R.id.tvTimestampDetails);
 
+        //unwrap post from the intent it was sent through
         post = (Post) Parcels.unwrap(getIntent().getParcelableExtra("post"));
 
         // Bind the post data to the view elements
@@ -41,7 +45,10 @@ public class DetailsActivity extends AppCompatActivity {
         tvTimeStamp.setText(calculateTimeAgo(post.getCreatedAt()));
         ParseFile image = post.getImage();
         if (image != null) {
-            Glide.with(this).load(image.getUrl()).into(ivImage);
+            Glide.with(this)
+                    .load(image.getUrl())
+                    .centerCrop()
+                    .into(ivImage);
         }
     }
 

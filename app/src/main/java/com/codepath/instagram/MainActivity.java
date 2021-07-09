@@ -24,10 +24,11 @@ import com.parse.ParseUser;
 import java.io.File;
 import java.sql.Time;
 
+/* Activity in charge of the bottom navigation menu; controls which fragment is viewed */
+
 public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
-
     private BottomNavigationView bottomNavigationView;
     private ImageButton ibLogout;
 
@@ -39,24 +40,26 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         ibLogout = findViewById(R.id.ibLogout);
 
+        //sets up the bottom navigation menu such that the correct fragments are displayed
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
                 switch (item.getItemId()) {
-                    case R.id.action_home:
+                    case R.id.action_home: //timeline fragment
                         fragment = new TimelineFragment();
                         break;
-                    case R.id.action_compose:
+                    case R.id.action_compose: //post fragment
                         fragment = new PostFragment();
                         break;
-                    case R.id.action_profile:
+                    case R.id.action_profile: //profile fragment
                         fragment = new ProfileFragment();
                         break;
                     default:
                         fragment = new TimelineFragment();
                         break;
                 }
+                //replaced the contained with the correct fragment
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 //log out user account
                 ParseUser.logOut();
 
+                //create intent back to login page
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
