@@ -1,6 +1,6 @@
 # Project 3 - *Instagram*
 
-**Instagram** is an android app that allows a user to log in to a local Instagram account, view their home timeline, and publish a post.
+**Instagram** is an android app that allows a user to log in to a mock Instagram account, view their home timeline, and publish a post. The app uses Parse database technologies as its backend to store and edit user data.
 
 Submitted by: **Tess Van Daele**
 
@@ -11,7 +11,7 @@ Time spent: **12** hours spent in total
 The following **required** functionality is completed:
 
 * [x] User can **log in** to a local Instagram account
-* [x] User can **sign up** for a new account
+* [x] User can **sign up** for a new account using Parse authentication
 * [x] User can **view and scroll through the home timeline** to view the posts of all users
 * [x] User can **publish a post** to their account
 * [x] User can **take an image using the phone camera** and include it in their post
@@ -24,6 +24,8 @@ The following **bonus** features are implemented:
 
 * [x] **UI design improvements** were added such as adding Instagram icons and cloring
 * [x] A **bottom navigation menu** was used with **fragments** for easy navigation between screens
+* [x] User can view a **grid layout** of their own posts on their profile screen
+* [x] User can view a user's **profile image** on their posts
 
 ## Video Walkthrough
 
@@ -36,7 +38,7 @@ GIF created with [LiceCAP](https://www.cockos.com/licecap/).
 ## Notes
 
 Implementing the bottom navigation menu was challenging since it required restructuring an already structured project. Thankfully, the provided tutorial 
-explained great ways in which to reuse previously written code such that only the main screen activity implementations had to be traslated to fragments.
+explained great ways in which to reuse previously written code such that only a handful of activities had to be completely translated to a new fragment. 
 
 ## License
 
