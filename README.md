@@ -1,4 +1,4 @@
-# Project 3 - *Instagram*
+# Project 4 - *Instagram*
 
 **Instagram** is an android app that allows a user to log in to a mock Instagram account, view their home timeline, and publish a post. The app uses Parse database technologies as its backend to store and edit user data.
 
