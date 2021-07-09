@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -21,6 +22,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText etUsernameSignup;
     private EditText etPasswordSignup;
     private Button btnCreateAccount;
+    private ImageButton ibBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class SignupActivity extends AppCompatActivity {
         etUsernameSignup = findViewById(R.id.etUsernameSignup);
         etPasswordSignup = findViewById(R.id.etPasswordSignup);
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        ibBack = findViewById(R.id.ibBack);
 
         //set up create account button
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +60,17 @@ public class SignupActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+            }
+        });
+
+        //setting up back button
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //create intent back to log in screen so user can log in with new account
+                Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
