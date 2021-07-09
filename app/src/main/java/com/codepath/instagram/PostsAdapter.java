@@ -1,6 +1,7 @@
 package com.codepath.instagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.Date;
 import java.util.List;
@@ -51,7 +54,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView tvUsername;
         private ImageView ivImage;
@@ -66,6 +69,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
             tvUsername2 = itemView.findViewById(R.id.tvUsername2);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
@@ -78,6 +82,26 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("click", "click");
+            //get item position
+            int position = getAdapterPosition();
+
+            //check that position is valid
+            if (position != RecyclerView.NO_POSITION) {
+                //retrieve movie at position
+                Post post = posts.get(position);
+                //create intent for new activity
+                Intent intent = new Intent(context, DetailsActivity.class);
+                //serialize the movie
+                intent.putExtra("post", Parcels.wrap(post));
+                //start the activity
+                context.startActivity(intent);
+            }
+
         }
     }
 
